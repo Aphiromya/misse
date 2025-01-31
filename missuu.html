@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คิดถึงไหม?</title>
+    <style>
+        /* ตั้งค่าพื้นหลังเป็นสีพาสเทลพร้อมหัวใจ */
+        body {
+            background: linear-gradient(to bottom, #FFD1DC, #B5EAD7); /* ชมพูพาสเทล + เขียวมิ้นท์ */
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* หัวใจที่ลอยในพื้นหลัง */
+        .heart {
+            position: absolute;
+            color: #FF69B4;
+            font-size: 10px;
+            animation: float 5s infinite linear;
+            opacity: 0.8;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh); opacity: 1; }
+            100% { transform: translateY(-10vh); opacity: 0; }
+        }
+
+        /* กล่องคำถาม */
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        /* คำถาม */
+        h1 {
+            color: #FF4081;
+            font-size: 2em;
+        }
+
+        /* ปุ่มตัวเลือก */
+        button {
+            background: #FFB6C1;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #FF69B4;
+            color: white;
+        }
+
+        /* อนิเมชั่นหัวใจแตกกระจาย */
+        .explode {
+            position: absolute;
+            font-size: 20px;
+            color: #FF4081;
+            animation: explodeAnim 1s forwards;
+        }
+
+        @keyframes explodeAnim {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- คำถาม -->
+    <div class="container" id="questionBox">
+        <h1>คิดถึงไหม?</h1>
+        <button onclick="showLove()">A. คิดถึง</button>
+        <button onclick="showLove()">B. คิดถึงมากที่สุด</button>
+    </div>
+
+    <script>
+        // สร้างหัวใจเต็มพื้นหลัง
+        function createHearts() {
+            for (let i = 0; i < 50; i++) {
+                let heart = document.createElement("div");
+                heart.innerHTML = "❤️";
+                heart.classList.add("heart");
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                document.body.appendChild(heart);
+            }
+        }
+        createHearts();
+
+        // เมื่อกดปุ่มให้หัวใจแตกกระจายและเปลี่ยนข้อความ
+        function showLove() {
+            let box = document.getElementById("questionBox");
+            box.innerHTML = "<h1>คิดถึงเหมือนกันค่ะ ❤️</h1>";
+
+            for (let i = 0; i < 20; i++) {
+                let explodeHeart = document.createElement("div");
+                explodeHeart.innerHTML = "💖";
+                explodeHeart.classList.add("explode");
+                explodeHeart.style.left = (50 + Math.random() * 30 - 15) + "vw";
+                explodeHeart.style.top = (50 + Math.random() * 30 - 15) + "vh";
+                document.body.appendChild(explodeHeart);
+                setTimeout(() => explodeHeart.remove(), 1000);
+            }
+        }
+    </script>
+
+</body>
+</html>X
